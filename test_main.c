@@ -26,32 +26,33 @@ int main() {
     printf("✅ Тест 3: insert_element OK\n");
     
     // Тест 4: вставка за конец (position = len+1)
-    assert(insert_element(&mas, &len, 3, &capacity, 30) == 0);
+    assert(insert_element(&mas, &len, 3, &capacity, 27) == 0);
     assert(len == 3);
-    assert(mas[2] == 30);
+    assert(mas[2] == 27);
     printf("✅ Тест 4: insert за конец OK\n");
     
     // Тест 5: del_element
-    arr_out(&mas, &len);  // [20,10,30]
+    arr_out(&mas, &len);  // [20,10,27]
     assert(del_element(&mas, &len, &capacity, 2) == 0);  // удаляем 10
     assert(len == 2);
-    assert(mas[0] == 20 && mas[1] == 30);
+    assert(mas[0] == 20 && mas[1] == 27);
     printf("✅ Тест 5: del_element OK\n");
     
     // Тест 6: dev_9 (30 % 9 == 0)
-    assert(insert_element(&mas, &len, 1, &capacity, 18) == 0);  // [18,20,30]
+    assert(insert_element(&mas, &len, 1, &capacity, 18) == 0);  // [18,20,27]
     printf("До dev_9:\n");
     arr_out(&mas, &len);
     
     assert(dev_9(&mas, &mas_9, &len, &capacity, &len_9, &capacity_9) == 0);
     
     printf("После dev_9 (оригинал):\n");
-    arr_out(&mas, &len);     // должно быть [20]
+    arr_out(&mas, &len);     // должно быть [20, 27]
     printf("Делимые на 9:\n");
-    arr_out(&mas_9, &len_9); // должно быть [18,30]
+    arr_out(&mas_9, &len_9); // должно быть [18]
     
-    assert(len == 1 && mas[0] == 20);
-    assert(len_9 == 2 && mas_9[0] == 18 && mas_9[1] == 30);
+    printf("len = %ld, mas[0] = %d\n", len, mas[0]); // Debug print
+    assert(len == 1 && mas[0] == 20 );
+    assert(len_9 == 2 && mas_9[0] == 18 && mas_9[1] == 27);
     printf("✅ Тест 6: dev_9 OK\n");
     
     // Тест 7: free

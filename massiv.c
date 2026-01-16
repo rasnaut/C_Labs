@@ -19,15 +19,19 @@ int init_arr(int **mas, size_t *len, size_t* capacity) {
 }
 
 int push_back(int **mas, size_t *len, size_t *capacity, int value) {
-    return insert_element(mas, len, *len, capacity, value);
+    return insert_element(mas, len, (*len)+1, capacity, value);
 }
 
 /*array output*/
 int arr_out(int **mas, size_t *len) {
-    int *mas_ar = *mas;
+    if(mas == NULL || *mas == NULL || len == NULL || *len == 0) {
+        printf("Array is empty!\n");
+        return -1;
+    }
+    printf("Array elements:\n");
     printf("Array length: %ld\n", *len);
     for (size_t i = 0; i < *len; i++) {
-        printf("Array element #%ld: %d", i + 1, mas_ar[i]);
+        printf("Array element #%ld: %d", i + 1, (*mas)[i]);
         printf("\n");
     }
     printf("Done\n");
@@ -55,16 +59,17 @@ int insert_element(int **mas, size_t *len, size_t position, size_t* capacity, in
     if (indx > *len) {
         indx = *len;
     }
-    size_t i = *len - 1;
-    while (i >= indx) {
+    int i = *len - 1;
+    printf("i = %d, indx = %ld\n", i, indx); // Debug print
+    while (i >= (int)indx) {
         (*mas)[i + 1] = (*mas)[i];
         i--;
     }
+    printf("Inserting at index: %ld\n", indx); // Debug print
     (*mas)[indx] = value;
     (*len)++;
     return 0;
 }
-
 
 /*delete element*/
 int del_element(int **mas, size_t *len, size_t *capacity, size_t position_del) {

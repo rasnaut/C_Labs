@@ -20,7 +20,7 @@ main: main.c dialog.c massiv.c
 	$(CC) $(CFLAGS) -o $@ $^ $(LDLIBS)
 
 # Компиляция тестов
-main_test: main_test.c dialog.c massiv.c
+main_test: test_main.c dialog.c massiv.c
 	$(CC) $(CFLAGS) -o $@ $^ $(LDLIBS)
 
 # Отдельная компиляция модулей (для отладки)
