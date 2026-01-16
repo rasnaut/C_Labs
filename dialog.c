@@ -29,14 +29,13 @@ int check(int *num) {
 
 /*array create func*/
 int make_array(int **mas, size_t *len, size_t *capacity) {
-    size_t ln;
+    size_t ln = 0;
     printf("Input array length:\n");
     check((int*)&ln);
-    *len = ln;
+    *len = 0;
     *capacity = ln;
     init_arr(mas, len, capacity);
-    printf("Input array elements:\n");
-
+    
     for (size_t i = 0; i < ln; i++) {
         printf("Input %ld element: ", i + 1); /*usless*/
         int input_value;

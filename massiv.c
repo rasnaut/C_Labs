@@ -1,15 +1,12 @@
 #include "massiv.h"
 
 int init_arr(int **mas, size_t *len, size_t* capacity) {
-    if(len == NULL || mas == NULL || capacity == NULL) {
+    if(len == NULL || mas == NULL || capacity == NULL || len == NULL) {
         return -1;
     }
-    if(capacity == NULL || *capacity == 0) {
-        *capacity = 1;
-    }
-    if(len == NULL || *len != 0) {
-        *len = 0;
-    }
+    if(*capacity == 0) { *capacity = 1; }
+    if(*len      != 0) { *len      = 0; }
+    
     *mas = calloc(*capacity, sizeof(int));
     if(*mas == NULL) {
         printf("Memory application failed\n");
@@ -118,11 +115,13 @@ int dev_9(int **mas, int **mas_9, size_t *len, size_t *capacity, size_t *len_9, 
     *len_9 = 0;
     *capacity_9 = 1;
     init_arr(mas_9, len_9, capacity_9);
-    for (size_t i = 0; i < *len; i++) {
+    for (size_t i = 0; i < *len;) {
         if (((*mas)[i] % 9 == 0) && ((*mas)[i] != 0)) {
             push_back(mas_9, len_9, capacity_9, (*mas)[i]);
             del_element(mas, len, capacity, (i + 1)); /*for user*/
+            continue; /*stay on the same index after deletion*/
         }
+        i++;
     }
     return 0;
 }
