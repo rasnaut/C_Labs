@@ -1,0 +1,56 @@
+@startuml
+title Insert element to dynamic array (C)
+
+start
+
+partition "insert_element_to_array()" {
+  :print "Enter value of insert: ";
+  :check(&value);
+  :print "Enter index of insert: ";
+  :check(&position);
+
+  :call insert_element(mas, len, position, capacity, value);
+}
+
+partition "insert_element()" {
+
+  if (position <= 0?) then (yes)
+    :print "Position is not found in array";
+    :return -1;
+    stop
+  else (no)
+    :indx = position - 1;
+  endif
+
+  if (*len >= *capacity?) then (yes)
+    :new_capacity = (*capacity == 0) ? 1 : (*capacity * 2);
+    :new_mas = realloc(*mas, new_capacity * sizeof(int));
+
+    if (new_mas == NULL?) then (yes)
+      :print "Memory application failed";
+      :return 1;
+      stop
+    else (no)
+      :*mas = new_mas;
+      :*capacity = new_capacity;
+    endif
+  endif
+
+  if (indx > *len?) then (yes)
+    :indx = *len;
+  endif
+
+  :i = *len - 1;
+
+  while (i >= (int)indx?) is (yes)
+    :(*mas)[i + 1] = (*mas)[i];
+    :i--;
+  endwhile (no)
+
+  :(*mas)[indx] = value;
+  :(*len)++;
+  :return 0;
+}
+
+stop
+@enduml

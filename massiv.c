@@ -9,7 +9,7 @@ int init_arr(int **mas, size_t *len, size_t* capacity) {
     
     *mas = calloc(*capacity, sizeof(int));
     if(*mas == NULL) {
-        printf("Memory application failed\n");
+        printf("Memory allocation failed\n");
         return 1;
     }
     return 0;
@@ -46,7 +46,7 @@ int insert_element(int **mas, size_t *len, size_t position, size_t* capacity, in
         size_t new_capacity = (*capacity == 0) ? 1 : (*capacity * 2);
         int *new_mas = realloc(*mas, new_capacity * sizeof(int));
         if(new_mas == NULL) {
-            printf("Memory application failed\n");
+            printf("Memory allocation failed\n");
             return 1;
         }
         *mas = new_mas;
@@ -84,7 +84,7 @@ int del_element(int **mas, size_t *len, size_t *capacity, size_t position_del) {
         size_t new_capacity = *capacity / 2;
         int *new_mas = realloc(*mas, new_capacity * sizeof(int));
         if(new_mas == NULL) {
-            printf("Memory application failed\n");
+            printf("Memory allocation failed\n");
             return 1;
         }
         *mas = new_mas;
@@ -113,7 +113,7 @@ int dev_9(int **mas, int **mas_9, size_t *len, size_t *capacity, size_t *len_9, 
         return -1;
     }
     *len_9 = 0;
-    *capacity_9 = 1;
+    *capacity_9 = *len/2;
     init_arr(mas_9, len_9, capacity_9);
     for (size_t i = 0; i < *len;) {
         if (((*mas)[i] % 9 == 0) && ((*mas)[i] != 0)) {
