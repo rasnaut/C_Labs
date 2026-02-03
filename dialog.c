@@ -10,6 +10,7 @@ int check(int *num) {
     while(state == false) {
         chk = scanf("%d", &val);
         if (chk == EOF) {
+            *num = 0;
             return -1;
         }
         if (chk != 1) {

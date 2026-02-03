@@ -8,14 +8,13 @@ int main() {
     int num;
     do {
         printf("-----MENU-----\n");
-        printf("(0) -> Exit\n");
         printf("(1) -> Array initialization\n");
         printf("(2) -> New element\n");
         printf("(3) -> Delete element\n");
         printf("(4) -> Data processing\n");
         printf("(5) -> Current state output\n");
-        printf("Input number from 0 to 5: ");
-        check(&num);  /*��������� ��� ������� check*/
+        printf("Input number from 1 to 5 (Ctrl + D for Exit): ");
+        check(&num);  
         switch(num) {
             case 0: printf("Exit...");                                                     break;
             case 1: make_array(&mas, &len, &capacity);                arr_out(&mas, &len); break;
@@ -24,7 +23,7 @@ int main() {
             case 4: special_operation_dev_9(&mas, &mas_9, &len, &capacity, &len_9, &capacity_9); break;
             case 5: current_state_output(&mas, &len, &mas_9, &len_9);                      break;
             default:
-                printf("Incorrect value!\n");
+                printf("Incorrect choice number = %d!\n", num);
                 break;
         }
     } while(num);
