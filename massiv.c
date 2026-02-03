@@ -38,7 +38,6 @@ int arr_out(int **mas, size_t *len) {
 /*add element func*/
 int insert_element(int **mas, size_t *len, size_t position, size_t* capacity, int value) {
     if (position <= 0) {
-        printf("Position is not found in array\n");
         return -1; /*index is not found in array*/
     }
     size_t indx = position - 1; /*for user*/
@@ -46,7 +45,6 @@ int insert_element(int **mas, size_t *len, size_t position, size_t* capacity, in
         size_t new_capacity = (*capacity == 0) ? 1 : (*capacity * 2);
         int *new_mas = realloc(*mas, new_capacity * sizeof(int));
         if(new_mas == NULL) {
-            printf("Memory allocation failed\n");
             return 1;
         }
         *mas = new_mas;
@@ -57,12 +55,10 @@ int insert_element(int **mas, size_t *len, size_t position, size_t* capacity, in
         indx = *len;
     }
     int i = *len - 1;
-    printf("i = %d, indx = %ld\n", i, indx); // Debug print
     while (i >= (int)indx) {
         (*mas)[i + 1] = (*mas)[i];
         i--;
     }
-    printf("Inserting at index: %ld\n", indx); // Debug print
     (*mas)[indx] = value;
     (*len)++;
     return 0;
@@ -72,7 +68,6 @@ int insert_element(int **mas, size_t *len, size_t position, size_t* capacity, in
 int del_element(int **mas, size_t *len, size_t *capacity, size_t position_del) {
     size_t inx = position_del - 1; /*for user*/
     if (inx >= *len) {
-        printf("Index is out of range\n");
         return -1;
     }
     size_t i = inx;
@@ -84,7 +79,6 @@ int del_element(int **mas, size_t *len, size_t *capacity, size_t position_del) {
         size_t new_capacity = *capacity / 2;
         int *new_mas = realloc(*mas, new_capacity * sizeof(int));
         if(new_mas == NULL) {
-            printf("Memory allocation failed\n");
             return 1;
         }
         *mas = new_mas;
@@ -109,7 +103,6 @@ int free_arr(int **mas, size_t *len, size_t *capacity) {
 /*elements devided by 9 func*/
 int dev_9(int **mas, int **mas_9, size_t *len, size_t *capacity, size_t *len_9, size_t *capacity_9) {
     if(mas == NULL || *mas == NULL || len == NULL || *len <= 0 || len_9 == NULL) {
-        printf("Invalid input\n");
         return -1;
     }
     *len_9 = 0;

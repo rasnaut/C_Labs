@@ -35,13 +35,21 @@ int make_array(int **mas, size_t *len, size_t *capacity) {
     check((int*)&ln);
     *len = 0;
     *capacity = ln;
-    init_arr(mas, len, capacity);
+    int success = init_arr(mas, len, capacity);
+    if (success != 0) {
+        printf("Failed to initialize array\n");
+        return -1;
+    }
     
     for (size_t i = 0; i < ln; i++) {
         printf("Input %ld element: ", i + 1); /*usless*/
         int input_value;
         check(&input_value);
-        push_back(mas, len, capacity, input_value);
+        success = push_back(mas, len, capacity, input_value);
+        if (success != 0) {
+            printf("Failed to push back element with index %ld and value %d\n", i + 1, input_value);
+            return -1;
+        }
         printf("Value mas[%ld]: %d", i + 1, (*mas)[i]);
         printf("\n");
     }
@@ -57,7 +65,11 @@ int insert_element_to_array(int **mas, size_t *len, size_t *capacity)
     check(&value);
     printf("Enter index of insert: ");
     check(&position);
-    return insert_element(mas, len, position, capacity, value);
+    int status = insert_element(mas, len, position, capacity, value);
+    if (status != 0) {
+        printf("Failed to insert element at index %d with value %d\n", position, value);
+    }
+    return status;
 }
 
 int delete_element_from_array(int **mas, size_t *len, size_t *capacity)
@@ -65,13 +77,18 @@ int delete_element_from_array(int **mas, size_t *len, size_t *capacity)
     size_t index_del;
     printf("Enter index to delete: ");
     check((int*)&index_del);
-    return del_element(mas, len, capacity, index_del);
+    int status = del_element(mas, len, capacity, index_del);
+    if (status != 0) {
+        printf("Failed to delete element at index %ld\n", index_del);       
+    }
+    return status;
 }
 
 int current_state_output(int **mas, size_t *len, int **mas_9, size_t *len_9)
 {
     int num1;
     bool flag = false;
+    int status = 0;
     while(flag == false) {
         flag = true;
         printf("1) -> standart_array\n");
@@ -79,8 +96,18 @@ int current_state_output(int **mas, size_t *len, int **mas_9, size_t *len_9)
         printf("Choose array: ");
         check(&num1);
         switch(num1) {
-            case 1: arr_out(mas, len);     break;
-            case 2: arr_out(mas_9, len_9); break;
+            case 1: 
+                status = arr_out(mas, len);     
+                if (status != 0) {
+                    printf("Failed to output standard array\n");
+                }
+            break;
+            case 2: 
+                status = arr_out(mas_9, len_9);
+                if (status != 0) {
+                    printf("Failed to output special array\n");
+                }
+                break;
             default:
                 flag = false;
                 printf("Incorrect value!\n");
@@ -91,7 +118,11 @@ int current_state_output(int **mas, size_t *len, int **mas_9, size_t *len_9)
 }
 
 int special_operation_dev_9(int **mas, int **mas_9, size_t *len, size_t *capacity, size_t *len_9, size_t *capacity_9) {
-    dev_9(mas, mas_9, len, capacity, len_9, capacity_9);
+    int status = dev_9(mas, mas_9, len, capacity, len_9, capacity_9);
+    if (status != 0) {
+        printf("Failed to compute special array\n");
+        return -1;
+    }
     printf("Array (9) elements:\n");
     return arr_out(mas_9, len_9);
 }
