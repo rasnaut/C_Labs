@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <assert.h>
-#include "massiv.h"  // предполагаем, что заголовок корректный
+#include "massiv.h"  // 
+#include "dialog.h"  // 
 
 int main() {
     int *mas = NULL, *mas_9 = NULL;

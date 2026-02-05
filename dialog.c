@@ -30,18 +30,22 @@ int check(int *num) {
 
 /*array create func*/
 int make_array(int **mas, size_t *len, size_t *capacity) {
-    size_t ln = 0;
+    int ln = 0;
     printf("Input array length:\n");
-    check((int*)&ln);
+    check(&ln);
     *len = 0;
-    *capacity = ln;
+    if (ln <= 0) {
+        printf("Array length is zero or negative, nothing to initialize.\n");
+        return -1;
+    }
+    *capacity = (size_t)ln;
     int success = init_arr(mas, len, capacity);
     if (success != 0) {
         printf("Failed to initialize array\n");
         return -1;
     }
     
-    for (size_t i = 0; i < ln; i++) {
+    for (size_t i = 0; i < *capacity; i++) {
         printf("Input %ld element: ", i + 1); /*usless*/
         int input_value;
         check(&input_value);
@@ -61,25 +65,34 @@ int insert_element_to_array(int **mas, size_t *len, size_t *capacity)
 {
     int value;
     int position;
+    printf("Enter position of new element from 1 to %ld: ", *len + 1);
+    check(&position);
+    if(position <= 0 || position > (int)(*len + 1)) {
+        printf("Position must be between 1 and %ld!\n", *len + 1);
+        return -1;
+    }
     printf("Enter value of insert: ");
     check(&value);
-    printf("Enter index of insert: ");
-    check(&position);
+    
     int status = insert_element(mas, len, position, capacity, value);
     if (status != 0) {
-        printf("Failed to insert element at index %d with value %d\n", position, value);
+        printf("Failed to insert element at position %d with value %d\n", position, value);
     }
     return status;
 }
 
 int delete_element_from_array(int **mas, size_t *len, size_t *capacity)
 {
-    size_t index_del;
-    printf("Enter index to delete: ");
-    check((int*)&index_del);
-    int status = del_element(mas, len, capacity, index_del);
+    int index_del;
+    printf("Enter position delete element from 1 to %ld: ", *len);
+    check(&index_del);
+    if(index_del <= 0 || index_del > (int)(*len)) {
+        printf("Position must be between 1 and %ld!\n", *len);
+        return -1;
+    }
+    int status = del_element(mas, len, capacity, (size_t)index_del);
     if (status != 0) {
-        printf("Failed to delete element at index %ld\n", index_del);       
+        printf("Failed to delete element at index %d\n", index_del);       
     }
     return status;
 }
@@ -125,4 +138,20 @@ int special_operation_dev_9(int **mas, int **mas_9, size_t *len, size_t *capacit
     }
     printf("Array (9) elements:\n");
     return arr_out(mas_9, len_9);
+}
+
+/*array output*/
+int arr_out(int **mas, size_t *len) {
+    if(mas == NULL || *mas == NULL || len == NULL || *len == 0) {
+        printf("Array is empty!\n");
+        return -1;
+    }
+    printf("Array elements:\n");
+    printf("Array length: %ld\n", *len);
+    for (size_t i = 0; i < *len; i++) {
+        printf("Array element #%ld: %d", i + 1, (*mas)[i]);
+        printf("\n");
+    }
+    printf("Done\n");
+    return 0;
 }

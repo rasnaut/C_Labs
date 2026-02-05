@@ -7,7 +7,6 @@
 
 int init_arr(int **mas, size_t *len, size_t* capacity);
 
-int arr_out(int **mass, size_t *len);
 int insert_element(int **mas, size_t *len, size_t position, size_t* capacity, int value);
 int push_back(int **mas, size_t *len, size_t *capacity, int value);
 

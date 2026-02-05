@@ -17,7 +17,13 @@ int main() {
         check(&num);  
         switch(num) {
             case 0: printf("Exit...");                                                     break;
-            case 1: make_array(&mas, &len, &capacity);                arr_out(&mas, &len); break;
+            case 1: 
+                if(make_array(&mas, &len, &capacity) != 0) {
+                    printf("Failed to create array\n");
+                    break;
+                }
+                arr_out(&mas, &len); 
+            break;
             case 2: insert_element_to_array(&mas, &len, &capacity);   arr_out(&mas, &len); break;
             case 3: delete_element_from_array(&mas, &len, &capacity); arr_out(&mas, &len); break;
             case 4: special_operation_dev_9(&mas, &mas_9, &len, &capacity, &len_9, &capacity_9); break;

@@ -9,7 +9,7 @@ int init_arr(int **mas, size_t *len, size_t* capacity) {
     
     *mas = calloc(*capacity, sizeof(int));
     if(*mas == NULL) {
-        printf("Memory allocation failed\n");
+
         return 1;
     }
     return 0;
@@ -17,22 +17,6 @@ int init_arr(int **mas, size_t *len, size_t* capacity) {
 
 int push_back(int **mas, size_t *len, size_t *capacity, int value) {
     return insert_element(mas, len, (*len)+1, capacity, value);
-}
-
-/*array output*/
-int arr_out(int **mas, size_t *len) {
-    if(mas == NULL || *mas == NULL || len == NULL || *len == 0) {
-        printf("Array is empty!\n");
-        return -1;
-    }
-    printf("Array elements:\n");
-    printf("Array length: %ld\n", *len);
-    for (size_t i = 0; i < *len; i++) {
-        printf("Array element #%ld: %d", i + 1, (*mas)[i]);
-        printf("\n");
-    }
-    printf("Done\n");
-    return 0;
 }
 
 /*add element func*/
